@@ -7,52 +7,25 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: Arial Black, Arial, sans-serif;
-  color: white; min-height: 100vh; text-align: center;
-  background: url('logo.png') no-repeat center center fixed;
-  background-size: cover; position: relative;
+  font-family: Arial, sans-serif; color: white; min-height: 100vh; text-align: center;
+  background: url('logo.png') no-repeat center center fixed; background-size: cover;
 }
-body::before {
-  content: ""; position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: -1;
-}
-.container { padding: 30px 20px; }
-h1 { font-size: 45px; text-shadow: 0 0 20px red; }
-.logo-principal { width: 85%; max-width: 360px; border-radius: 20px; border: 3px solid white; margin: 25px 0; box-shadow: 0 0 25px white; }
-.botones { max-width: 380px; margin: 20px auto; display: flex; flex-direction: column; gap: 15px; }
-.btn {
-  padding: 18px; border-radius: 15px; background: #111; color: white;
-  border: 2px solid white; font-size: 18px; font-weight: bold; cursor: pointer;
-}
-.btn:hover { background: white; color: black; }
-
-/* MODAL ADVERTENCIA */
-#modal {
-  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.9); z-index: 9999;
-  justify-content: center; align-items: center;
-}
-.modal-box {
-  background: #111; border: 3px solid #ff0000; border-radius: 20px;
-  padding: 30px 20px; max-width: 350px; width: 90%;
-  box-shadow: 0 0 40px red;
-  animation: entrada 0.5s ease-out;
-}
-@keyframes entrada {
-  from { transform: scale(0.5) translateY(-100px); opacity: 0; }
-  to { transform: scale(1) translateY(0); opacity: 1; }
-}
-.modal-box h2 { color: #ff0000; font-size: 26px; margin-bottom: 10px; }
-#contador { font-size: 50px; color: yellow; margin: 15px 0; }
-.modal-btns { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-.modal-btns button {
-  flex: 1; padding: 12px; border-radius: 10px; border: none;
-  font-weight: bold; font-size: 16px; cursor: pointer;
-}
-#btnSi { background: #009736; color: white; }
-#btnSi:disabled { background: #555; opacity: 0.5; }
+body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: -1; }
+.container { padding: 25px 15px; }
+h1 { font-family: Arial Black; font-size: 42px; text-shadow: 0 0 20px red; }
+.logo-principal { width: 80%; max-width: 340px; border-radius: 20px; border: 3px solid white; margin: 20px 0; box-shadow: 0 0 25px white; }
+.botones { max-width: 400px; margin: 20px auto; display: flex; flex-direction: column; gap: 12px; }
+.btn { padding: 16px; border-radius: 12px; background: #111; color: white; border: 2px solid white; font-size: 17px; font-weight: bold; cursor: pointer; }
+#modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 9999; justify-content: center; align-items: center; padding: 15px; }
+.modal-box { background: #0f0f0f; border: 3px solid #ff0000; border-radius: 20px; padding: 25px 20px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px red; animation: entrada 0.5s ease-out; }
+@keyframes entrada { from { transform: scale(0.5) translateY(-100px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+#contador { font-size: 60px; color: #ff0; margin: 15px 0; font-weight: bold; }
+.modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+.modal-btns button { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
+#btnSi { background: #009736; color: white; } #btnSi:disabled { background: #555; opacity: 0.5; }
 #btnNo { background: #CE1126; color: white; }
+.info-text { text-align: left; font-size: 16px; line-height: 1.6; display: none; }
+.info-text h3 { color: #009736; text-align: center; margin-bottom: 15px; font-size: 22px; }
 </style>
 </head>
 <body>
@@ -60,57 +33,69 @@ h1 { font-size: 45px; text-shadow: 0 0 20px red; }
   <h1>🇵🇸 PALESTINA LIBRE 🇵🇸</h1>
   <img src="logo.png" class="logo-principal">
   <div class="botones">
-    <button class="btn" onclick="abrirAdvertencia('https://es.wikipedia.org/wiki/Historia_de_Palestina')">📜 HISTORIA REAL DE PALESTINA</button>
-    <button class="btn" onclick="abrirAdvertencia('https://es.wikipedia.org/wiki/Franja_de_Gaza')">📍 QUE ESTA PASANDO EN GAZA</button>
-    <button class="btn" onclick="abrirAdvertencia('https://www.un.org/unrwa/es')">🌍 AYUDA HUMANITARIA</button>
-    <button class="btn" onclick="abrirAdvertencia('https://es.wikipedia.org/wiki/Conflicto_israeli-palestino')">⚠️ VERDAD DEL CONFLICTO</button>
+    <button class="btn" onclick="abrir('historia')">📜 HISTORIA DE PALESTINA</button>
+    <button class="btn" onclick="abrir('gaza')">📍 QUE PASA EN GAZA HOY</button>
+    <button class="btn" onclick="abrir('cifras')">📊 CIFRAS REALES</button>
+    <button class="btn" onclick="abrir('porque')">❤️ ¿POR QUÉ APOYAR?</button>
+    <button class="btn" onclick="abrir('ayuda')">🤝 COMO AYUDAR</button>
   </div>
 </div>
 
 <div id="modal">
   <div class="modal-box">
-    <h2>⚠️ ADVERTENCIA ⚠️</h2>
-    <p style="font-size:18px; margin:10px 0;">¿SEGURO QUE QUIERES LEER ESTO?</p>
-    <p style="font-size:14px; opacity:0.8;">Este contenido puede ser fuerte</p>
-    <div id="contador">6</div>
-    <p style="font-size:13px;">Espera para decidir...</p>
-    <div class="modal-btns">
-      <button id="btnNo" onclick="cerrarModal()">NO</button>
-      <button id="btnSi" disabled onclick="irLink()">SI (6)</button>
+    <div id="parteAdvertencia">
+      <h2 style="color:#ff0000;">⚠️ ADVERTENCIA ⚠️</h2>
+      <p style="font-size:18px; margin:15px 0; font-weight:bold;">¿SEGURO QUE QUIERES LEER ESTO?</p>
+      <p style="font-size:14px; opacity:0.8;">Esta verdad no la pasan en la tele.</p>
+      <div id="contador">6</div>
+      <div class="modal-btns">
+        <button id="btnNo" onclick="cerrar()">NO</button>
+        <button id="btnSi" disabled onclick="mostrarInfo()">SI (6)</button>
+      </div>
+    </div>
+    <div id="parteInfo" class="info-text">
+      <div id="textoInfo"></div>
+      <button onclick="cerrar()" style="margin-top:20px; width:100%; padding:12px; background:white; color:black; border-radius:10px; font-weight:bold; border:none;">CERRAR</button>
     </div>
   </div>
 </div>
 
 <script>
-let linkDestino = "";
-let intervalo;
-function abrirAdvertencia(url) {
-  linkDestino = url;
+let tipoActual = ""; let intervalo;
+const infos = {
+  historia: `<h3>📜 HISTORIA DE PALESTINA</h3><p>Palestina no empezó en 2023. Existe desde hace miles de años. Los palestinos han vivido ahí por generaciones.<br><br>En 1948 pasó la Nakba: más de 700,000 palestinos fueron sacados de sus casas a la fuerza y nunca los dejaron volver. Por eso hay millones de refugiados palestinos en todo el mundo hasta hoy.<br><br>Desde 1967 viven bajo ocupación militar.</p>`,
+  gaza: `<h3>📍 QUE PASA EN GAZA HOY</h3><p>Gaza es un pedacito de tierra de 41km, pero ahí viven 2.3 millones de personas encerradas. No pueden salir, no hay aeropuerto, no hay libertad.<br><br>Más de la mitad son NIÑOS. Viven sin luz 12 horas al día, sin agua potable, y con hospitales que no tienen medicinas.<br><br>No es una guerra, es un pueblo encerrado.</p>`,
+  cifras: `<h3>📊 CIFRAS QUE NO TE DICEN</h3><p>🔴 2.3 millones de personas atrapadas en Gaza.<br><br>⚫ 50% son niños menores de 18 años.<br><br>🟢 80% de la gente no tiene trabajo y depende de ayuda para comer.<br><br>⚪ Más de 139 países ya reconocen a Palestina como país.<br><br>Esto no es opinión, son datos de la ONU.</p>`,
+  porque: `<h3>❤️ ¿POR QUÉ APOYAR A PALESTINA?</h3><p>Porque apoyar a Palestina es apoyar la justicia. Es estar del lado del pueblo que no tiene ejército, ni tanques, ni apoyo de potencias.<br><br>Si tú estuvieras en su lugar, querrías que el mundo no te olvidara.<br><br>Ser pro-Palestina no es estar contra nadie, es estar a favor de que los niños puedan ir a la escuela sin miedo, que tengan agua, casa y libertad. Es humanidad básica.</p>`,
+  ayuda: `<h3>🤝 COMO AYUDAR DE VERDAD</h3><p>1. NO TE CALLES. Comparte esta página, habla de Palestina.<br><br>2. Síguenos en redes y usa #FreePalestine.<br><br>3. Apoya a UNRWA y Media Luna Roja Palestina si puedes donar.<br><br>4. Esta página que hiciste YA ES AYUDA. Estás haciendo que más gente abra los ojos. Sigue así we.</p>`
+};
+function abrir(tipo) {
+  tipoActual = tipo;
   document.getElementById('modal').style.display = 'flex';
+  document.getElementById('parteAdvertencia').style.display = 'block';
+  document.getElementById('parteInfo').style.display = 'none';
   let seg = 6;
   document.getElementById('contador').innerText = seg;
-  document.getElementById('btnSi').disabled = true;
-  document.getElementById('btnSi').innerText = `SI (${seg})`;
+  const btnSi = document.getElementById('btnSi');
+  btnSi.disabled = true; btnSi.innerText = `SI (${seg})`;
   intervalo = setInterval(() => {
     seg--;
     document.getElementById('contador').innerText = seg;
-    document.getElementById('btnSi').innerText = `SI (${seg})`;
+    btnSi.innerText = `SI (${seg})`;
     if(seg <= 0) {
       clearInterval(intervalo);
       document.getElementById('contador').innerText = "✓";
-      document.getElementById('btnSi').innerText = "SI, QUIERO LEER";
-      document.getElementById('btnSi').disabled = false;
+      btnSi.innerText = "SI, QUIERO LEER";
+      btnSi.disabled = false;
     }
   }, 1000);
 }
-function cerrarModal() {
-  clearInterval(intervalo);
-  document.getElementById('modal').style.display = 'none';
+function mostrarInfo() {
+  document.getElementById('parteAdvertencia').style.display = 'none';
+  document.getElementById('textoInfo').innerHTML = infos[tipoActual];
+  document.getElementById('parteInfo').style.display = 'block';
 }
-function irLink() {
-  cerrarModal();
-  window.open(linkDestino, '_blank');
-}
+function cerrar() { clearInterval(intervalo); document.getElementById('modal').style.display = 'none'; }
 </script>
 </body>
-</html>
+  </html>
