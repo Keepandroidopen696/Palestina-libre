@@ -3,115 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CONTRA EL SIONISMO - PALESTINA LIBRE</title>
+<title>🇵🇸 PALESTINA LIBRE 🇵🇸</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#050505;color:#fff;font-family:'Segoe UI',system-ui,sans-serif}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
-.hero h1{font-size:58px;font-weight:900;line-height:.9}
-.hero h1 .r{color:#ff1a1a}.hero h1 .b{color:#fff}.hero h1 .g{color:#00ff41}
-.hero h2{margin:20px 0;letter-spacing:6px;color:#888;font-size:13px}
-.hero p{max-width:680px;color:#bbb;font-size:18px;line-height:1.6}
-.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px;max-width:600px}
-.btn{border:1px solid #ff1a1a;color:#ff1a1a;padding:12px 20px;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer;background:transparent;letter-spacing:1px}
-.btn.fill{background:#ff1a1a;color:#000}
-.btn.green{border-color:#00ff41;color:#00ff41}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Arial Black, Arial, sans-serif;
+  color: white; min-height: 100vh; text-align: center;
+  background: url('logo.png') no-repeat center center fixed;
+  background-size: cover; position: relative;
+}
+body::before {
+  content: ""; position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: -1;
+}
+.container { padding: 30px 20px; }
+h1 { font-size: 45px; text-shadow: 0 0 20px red; }
+.logo-principal { width: 85%; max-width: 360px; border-radius: 20px; border: 3px solid white; margin: 25px 0; box-shadow: 0 0 25px white; }
+.botones { max-width: 380px; margin: 20px auto; display: flex; flex-direction: column; gap: 15px; }
+.btn {
+  padding: 18px; border-radius: 15px; background: #111; color: white;
+  border: 2px solid white; font-size: 18px; font-weight: bold; cursor: pointer;
+}
+.btn:hover { background: white; color: black; }
 
-/* FRASE ONU */
-.onu-banner{background:#ff1a1a;color:#000;padding:25px 20px;text-align:center;font-weight:900;font-size:26px;letter-spacing:1px;line-height:1.2;border-top:4px solid #000;border-bottom:4px solid #000}
-
-.manifesto{padding:60px 24px;background:#0a0a0a;text-align:center}
-.footer{padding:40px;text-align:center;color:#555;font-size:11px;letter-spacing:2px}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:99;align-items:center;justify-content:center;padding:20px}
-.modal.active{display:flex}
-.modal-box{background:#111;border:1px solid #ff1a1a;border-radius:20px;padding:30px;max-width:600px;width:100%;max-height:85vh;overflow:auto}
-.modal-box h3{color:#ff1a1a;margin-bottom:12px;font-size:24px}
-.modal-box p{color:#ccc;font-size:16px;line-height:1.7;margin-bottom:12px}
-.modal-box ul{color:#999;margin-left:18px;margin-bottom:12px;line-height:1.6}
-.close{margin-top:20px;background:#ff1a1a;color:#000;border:0;padding:12px 20px;border-radius:999px;font-weight:900;cursor:pointer;width:100%}
+/* MODAL ADVERTENCIA */
+#modal {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9); z-index: 9999;
+  justify-content: center; align-items: center;
+}
+.modal-box {
+  background: #111; border: 3px solid #ff0000; border-radius: 20px;
+  padding: 30px 20px; max-width: 350px; width: 90%;
+  box-shadow: 0 0 40px red;
+  animation: entrada 0.5s ease-out;
+}
+@keyframes entrada {
+  from { transform: scale(0.5) translateY(-100px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-box h2 { color: #ff0000; font-size: 26px; margin-bottom: 10px; }
+#contador { font-size: 50px; color: yellow; margin: 15px 0; }
+.modal-btns { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+.modal-btns button {
+  flex: 1; padding: 12px; border-radius: 10px; border: none;
+  font-weight: bold; font-size: 16px; cursor: pointer;
+}
+#btnSi { background: #009736; color: white; }
+#btnSi:disabled { background: #555; opacity: 0.5; }
+#btnNo { background: #CE1126; color: white; }
 </style>
 </head>
 <body>
-
-<div class="hero">
-<h1><span class="r">PALESTINA</span><br><span class="b">LIBRE</span></h1>
-<h2>ANTISIONISMO NO ES ANTISEMITISMO</h2>
-<p>Esta página denuncia el genocidio en Gaza y el proyecto colonial sionista. No es contra judíos, es contra un estado que asesina civiles.</p>
-
-<div class="btns">
-<button class="btn fill" onclick="openModal('genocidio')">GENOCIDIO EN GAZA</button>
-<button class="btn" onclick="openModal('apartheid')">APARTHEID</button>
-<button class="btn" onclick="openModal('sionismo')">¿QUÉ ES SIONISMO?</button>
-<button class="btn green" onclick="openModal('judio')">JUDÍOS ANTISIONISTAS</button>
-<button class="btn" onclick="openModal('ayuda')">¿CÓMO AYUDAR?</button>
-<button class="btn" onclick="openModal('fuentes')">DATOS Y CIFRAS</button>
-</div>
+<div class="container">
+  <h1>🇵🇸 PALESTINA LIBRE 🇵🇸</h1>
+  <img src="logo.png" class="logo-principal">
+  <div class="botones">
+    <button class="btn" onclick="abrirAdvertencia('https://es.wikipedia.org/wiki/Historia_de_Palestina')">📜 HISTORIA REAL DE PALESTINA</button>
+    <button class="btn" onclick="abrirAdvertencia('https://es.wikipedia.org/wiki/Franja_de_Gaza')">📍 QUE ESTA PASANDO EN GAZA</button>
+    <button class="btn" onclick="abrirAdvertencia('https://www.un.org/unrwa/es')">🌍 AYUDA HUMANITARIA</button>
+    <button class="btn" onclick="abrirAdvertencia('https://es.wikipedia.org/wiki/Conflicto_israeli-palestino')">⚠️ VERDAD DEL CONFLICTO</button>
+  </div>
 </div>
 
-<div class="onu-banner">
-LA ORGANIZACIÓN DE LAS NACIONES UNIDAS ES INÚTIL<br>NO HACE NADA
-</div>
-
-<div class="manifesto">
-<h3 style="color:#ff1a1a;font-size:28px">¿POR QUÉ LO DECIMOS?</h3>
-<p style="color:#aaa;max-width:700px;margin:15px auto;font-size:17px;line-height:1.6">La ONU ve el genocidio en vivo, lo documenta, lo condena... y no hace nada. Vetos de EEUU bloquean cualquier acción. Resoluciones sin fuerza. Mientras tanto, siguen cayendo bombas.</p>
-</div>
-
-<div class="footer">PÁGINA INFORMATIVA LIBRE — 2026 — NEZA</div>
-
-<!-- MODALES -->
-<div id="genocidio" class="modal" onclick="closeModal('genocidio')">
-<div class="modal-box" onclick="event.stopPropagation()">
-<h3>GENOCIDIO EN GAZA</h3>
-<p>Bombardeos a hospitales, escuelas y campos de refugiados. Más de 2 millones desplazados. Bloqueo de agua y comida.</p>
-<button class="close" onclick="closeModal('genocidio')">CERRAR</button>
-</div>
-</div>
-
-<div id="apartheid" class="modal" onclick="closeModal('apartheid')">
-<div class="modal-box" onclick="event.stopPropagation()">
-<h3>APARTHEID</h3>
-<p>Carreteras solo para colonos, muros, dos sistemas legales. Denunciado por Amnistía y HRW.</p>
-<button class="close" onclick="closeModal('apartheid')">CERRAR</button>
-</div>
-</div>
-
-<div id="sionismo" class="modal" onclick="closeModal('sionismo')">
-<div class="modal-box" onclick="event.stopPropagation()">
-<h3>¿QUÉ ES SIONISMO?</h3>
-<p>Ideología colonial europea que busca crear un estado judío sobre tierra palestina, desplazando a su gente.</p>
-<button class="close" onclick="closeModal('sionismo')">CERRAR</button>
-</div>
-</div>
-
-<div id="judio" class="modal" onclick="closeModal('judio')">
-<div class="modal-box" onclick="event.stopPropagation()">
-<h3>JUDÍOS ANTISIONISTAS</h3>
-<p>Jewish Voice for Peace, Neturei Karta y miles más dicen: No en nuestro nombre. Criticar el sionismo no es antisemitismo.</p>
-<button class="close" onclick="closeModal('judio')">CERRAR</button>
-</div>
-</div>
-
-<div id="ayuda" class="modal" onclick="closeModal('ayuda')">
-<div class="modal-box" onclick="event.stopPropagation()">
-<h3>¿CÓMO AYUDAR?</h3>
-<p>Boicot (BDS), donar a Media Luna Roja, UNRWA, difundir y marchar.</p>
-<button class="close" onclick="closeModal('ayuda')">CERRAR</button>
-</div>
-</div>
-
-<div id="fuentes" class="modal" onclick="closeModal('fuentes')">
-<div class="modal-box" onclick="event.stopPropagation()">
-<h3>DATOS</h3>
-<p>1948 Nakba: 750k expulsados. 1967 ocupación. 2007 bloqueo a Gaza. 2023-2026 genocidio televisado.</p>
-<button class="close" onclick="closeModal('fuentes')">CERRAR</button>
-</div>
+<div id="modal">
+  <div class="modal-box">
+    <h2>⚠️ ADVERTENCIA ⚠️</h2>
+    <p style="font-size:18px; margin:10px 0;">¿SEGURO QUE QUIERES LEER ESTO?</p>
+    <p style="font-size:14px; opacity:0.8;">Este contenido puede ser fuerte</p>
+    <div id="contador">6</div>
+    <p style="font-size:13px;">Espera para decidir...</p>
+    <div class="modal-btns">
+      <button id="btnNo" onclick="cerrarModal()">NO</button>
+      <button id="btnSi" disabled onclick="irLink()">SI (6)</button>
+    </div>
+  </div>
 </div>
 
 <script>
-function openModal(id){document.getElementById(id).classList.add('active')}
-function closeModal(id){document.getElementById(id).classList.remove('active')}
+let linkDestino = "";
+let intervalo;
+function abrirAdvertencia(url) {
+  linkDestino = url;
+  document.getElementById('modal').style.display = 'flex';
+  let seg = 6;
+  document.getElementById('contador').innerText = seg;
+  document.getElementById('btnSi').disabled = true;
+  document.getElementById('btnSi').innerText = `SI (${seg})`;
+  intervalo = setInterval(() => {
+    seg--;
+    document.getElementById('contador').innerText = seg;
+    document.getElementById('btnSi').innerText = `SI (${seg})`;
+    if(seg <= 0) {
+      clearInterval(intervalo);
+      document.getElementById('contador').innerText = "✓";
+      document.getElementById('btnSi').innerText = "SI, QUIERO LEER";
+      document.getElementById('btnSi').disabled = false;
+    }
+  }, 1000);
+}
+function cerrarModal() {
+  clearInterval(intervalo);
+  document.getElementById('modal').style.display = 'none';
+}
+function irLink() {
+  cerrarModal();
+  window.open(linkDestino, '_blank');
+}
 </script>
-
 </body>
 </html>
