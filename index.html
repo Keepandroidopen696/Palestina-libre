@@ -1,101 +1,235 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇵🇸 PALESTINA LIBRE 🇵🇸</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: Arial, sans-serif; color: white; min-height: 100vh; text-align: center;
-  background: url('logo.png') no-repeat center center fixed; background-size: cover;
-}
-body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: -1; }
-.container { padding: 25px 15px; }
-h1 { font-family: Arial Black; font-size: 42px; text-shadow: 0 0 20px red; }
-.logo-principal { width: 80%; max-width: 340px; border-radius: 20px; border: 3px solid white; margin: 20px 0; box-shadow: 0 0 25px white; }
-.botones { max-width: 400px; margin: 20px auto; display: flex; flex-direction: column; gap: 12px; }
-.btn { padding: 16px; border-radius: 12px; background: #111; color: white; border: 2px solid white; font-size: 17px; font-weight: bold; cursor: pointer; }
-#modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 9999; justify-content: center; align-items: center; padding: 15px; }
-.modal-box { background: #0f0f0f; border: 3px solid #ff0000; border-radius: 20px; padding: 25px 20px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 0 40px red; animation: entrada 0.5s ease-out; }
-@keyframes entrada { from { transform: scale(0.5) translateY(-100px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
-#contador { font-size: 60px; color: #ff0; margin: 15px 0; font-weight: bold; }
-.modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-.modal-btns button { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
-#btnSi { background: #009736; color: white; } #btnSi:disabled { background: #555; opacity: 0.5; }
-#btnNo { background: #CE1126; color: white; }
-.info-text { text-align: left; font-size: 16px; line-height: 1.6; display: none; }
-.info-text h3 { color: #009736; text-align: center; margin-bottom: 15px; font-size: 22px; }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>🇵🇸 PALESTINA LIBRE 🇵🇸</h1>
-  <img src="logo.png" class="logo-principal">
-  <div class="botones">
-    <button class="btn" onclick="abrir('historia')">📜 HISTORIA DE PALESTINA</button>
-    <button class="btn" onclick="abrir('gaza')">📍 QUE PASA EN GAZA HOY</button>
-    <button class="btn" onclick="abrir('cifras')">📊 CIFRAS REALES</button>
-    <button class="btn" onclick="abrir('porque')">❤️ ¿POR QUÉ APOYAR?</button>
-    <button class="btn" onclick="abrir('ayuda')">🤝 COMO AYUDAR</button>
-  </div>
-</div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080a09">
+  <title>Palestina Libre | Comunicado final</title>
 
-<div id="modal">
-  <div class="modal-box">
-    <div id="parteAdvertencia">
-      <h2 style="color:#ff0000;">⚠️ ADVERTENCIA ⚠️</h2>
-      <p style="font-size:18px; margin:15px 0; font-weight:bold;">¿SEGURO QUE QUIERES LEER ESTO?</p>
-      <p style="font-size:14px; opacity:0.8;">Esta verdad no la pasan en la tele.</p>
-      <div id="contador">6</div>
-      <div class="modal-btns">
-        <button id="btnNo" onclick="cerrar()">NO</button>
-        <button id="btnSi" disabled onclick="mostrarInfo()">SI (6)</button>
-      </div>
-    </div>
-    <div id="parteInfo" class="info-text">
-      <div id="textoInfo"></div>
-      <button onclick="cerrar()" style="margin-top:20px; width:100%; padding:12px; background:white; color:black; border-radius:10px; font-weight:bold; border:none;">CERRAR</button>
-    </div>
-  </div>
-</div>
-
-<script>
-let tipoActual = ""; let intervalo;
-const infos = {
-  historia: `<h3>📜 HISTORIA DE PALESTINA</h3><p>Palestina no empezó en 2023. Existe desde hace miles de años. Los palestinos han vivido ahí por generaciones.<br><br>En 1948 pasó la Nakba: más de 700,000 palestinos fueron sacados de sus casas a la fuerza y nunca los dejaron volver. Por eso hay millones de refugiados palestinos en todo el mundo hasta hoy.<br><br>Desde 1967 viven bajo ocupación militar.</p>`,
-  gaza: `<h3>📍 QUE PASA EN GAZA HOY</h3><p>Gaza es un pedacito de tierra de 41km, pero ahí viven 2.3 millones de personas encerradas. No pueden salir, no hay aeropuerto, no hay libertad.<br><br>Más de la mitad son NIÑOS. Viven sin luz 12 horas al día, sin agua potable, y con hospitales que no tienen medicinas.<br><br>No es una guerra, es un pueblo encerrado.</p>`,
-  cifras: `<h3>📊 CIFRAS QUE NO TE DICEN</h3><p>🔴 2.3 millones de personas atrapadas en Gaza.<br><br>⚫ 50% son niños menores de 18 años.<br><br>🟢 80% de la gente no tiene trabajo y depende de ayuda para comer.<br><br>⚪ Más de 139 países ya reconocen a Palestina como país.<br><br>Esto no es opinión, son datos de la ONU.</p>`,
-  porque: `<h3>❤️ ¿POR QUÉ APOYAR A PALESTINA?</h3><p>Porque apoyar a Palestina es apoyar la justicia. Es estar del lado del pueblo que no tiene ejército, ni tanques, ni apoyo de potencias.<br><br>Si tú estuvieras en su lugar, querrías que el mundo no te olvidara.<br><br>Ser pro-Palestina no es estar contra nadie, es estar a favor de que los niños puedan ir a la escuela sin miedo, que tengan agua, casa y libertad. Es humanidad básica.</p>`,
-  ayuda: `<h3>🤝 COMO AYUDAR DE VERDAD</h3><p>1. NO TE CALLES. Comparte esta página, habla de Palestina.<br><br>2. Síguenos (no tenemos xd)en redes y usa #FreePalestine.<br><br>3. Apoya a UNRWA y Media Luna Roja Palestina si puedes donar.<br><br>4. Esta página que hiciste YA ES AYUDA. Estás haciendo que más gente abra los ojos. Sigue así we.(se refiere a mi xd)</p>`
-};
-function abrir(tipo) {
-  tipoActual = tipo;
-  document.getElementById('modal').style.display = 'flex';
-  document.getElementById('parteAdvertencia').style.display = 'block';
-  document.getElementById('parteInfo').style.display = 'none';
-  let seg = 6;
-  document.getElementById('contador').innerText = seg;
-  const btnSi = document.getElementById('btnSi');
-  btnSi.disabled = true; btnSi.innerText = `SI (${seg})`;
-  intervalo = setInterval(() => {
-    seg--;
-    document.getElementById('contador').innerText = seg;
-    btnSi.innerText = `SI (${seg})`;
-    if(seg <= 0) {
-      clearInterval(intervalo);
-      document.getElementById('contador').innerText = "✓";
-      btnSi.innerText = "SI, QUIERO LEER";
-      btnSi.disabled = false;
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  }, 1000);
-}
-function mostrarInfo() {
-  document.getElementById('parteAdvertencia').style.display = 'none';
-  document.getElementById('textoInfo').innerHTML = infos[tipoActual];
-  document.getElementById('parteInfo').style.display = 'block';
-}
-function cerrar() { clearInterval(intervalo); document.getElementById('modal').style.display = 'none'; }
-</script>
+
+    :root {
+      --green: #16845b;
+      --red: #dc343c;
+      --white: #f4f4f4;
+      --muted: #a7ada9;
+      --bg: #080a09;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 25px 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 620px;
+      animation: fadeIn 1.3s ease;
+    }
+
+    .flag {
+      width: 84px;
+      height: 56px;
+      margin: 0 auto 30px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      border-radius: 3px;
+      box-shadow: 0 0 25px #ffffff0b;
+    }
+
+    .flag span {
+      flex: 1;
+    }
+
+    .black { background: #111111; }
+    .white { background: #ffffff; }
+    .green { background: #16845b; }
+
+    .triangle {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      height: 0;
+      border-top: 28px solid transparent;
+      border-bottom: 28px solid transparent;
+      border-left: 0;
+      border-right: 42px solid transparent;
+    }
+
+    .triangle::after {
+      content: "";
+      position: absolute;
+      top: -28px;
+      left: 0;
+      border-top: 28px solid transparent;
+      border-bottom: 28px solid transparent;
+      border-left: 42px solid var(--red);
+    }
+
+    .label {
+      color: #8e9992;
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 8vw, 51px);
+      letter-spacing: 2px;
+      line-height: 1.15;
+      margin-bottom: 15px;
+    }
+
+    h1 span {
+      color: var(--green);
+    }
+
+    h2 {
+      font-size: 19px;
+      font-weight: 400;
+      color: #d0d5d1;
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      width: 65px;
+      height: 3px;
+      margin: 0 auto 28px;
+      background: linear-gradient(
+        to right,
+        var(--red) 33%,
+        white 33%,
+        white 66%,
+        var(--green) 66%
+      );
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+      margin-bottom: 19px;
+    }
+
+    .quote {
+      margin: 30px 0;
+      padding: 20px;
+      border-left: 3px solid var(--green);
+      background: #ffffff06;
+      color: #e1e6e2;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 17px;
+      border: 1px solid #343a36;
+      color: #d0d5d1;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid #262b28;
+      color: #69736c;
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .container { animation: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <div class="flag" role="img" aria-label="Bandera palestina">
+      <span class="black"></span>
+      <span class="white"></span>
+      <span class="green"></span>
+      <div class="triangle"></div>
+    </div>
+
+    <div class="label">COMUNICADO FINAL</div>
+
+    <h1>PALESTINA <span>LIBRE</span></h1>
+
+    <h2>Una etapa llega a su fin.</h2>
+
+    <div class="divider"></div>
+
+    <p>
+      Informamos que este sitio web ha llegado al final
+      de su etapa y no recibirá nuevas actualizaciones.
+    </p>
+
+    <p>
+      Este espacio fue creado para compartir un mensaje
+      relacionado con Palestina. Hoy, por decisión de su
+      administrador, la página cierra sus puertas.
+    </p>
+
+    <div class="quote">
+      El cierre de una página no borra las historias,
+      la dignidad ni la esperanza de quienes buscan
+      vivir en libertad, paz y seguridad.
+    </div>
+
+    <p>
+      Gracias a todas las personas que visitaron este
+      proyecto y dedicaron un momento a conocer su mensaje.
+    </p>
+
+    <p>
+      Nos despedimos de este espacio con respeto por
+      todas las vidas civiles y con la esperanza de un
+      futuro con justicia, libertad y paz.
+    </p>
+
+    <div class="status">
+      ● SITIO CERRADO · PROYECTO FINALIZADO
+    </div>
+
+    <footer>
+      PALESTINA LIBRE · COMUNICADO FINAL
+      <br>
+      GRACIAS POR HABER FORMADO PARTE DE ESTA ETAPA
+      <br><br>
+      © 2026
+    </footer>
+
+  </main>
 </body>
-  </html>
+</html>
